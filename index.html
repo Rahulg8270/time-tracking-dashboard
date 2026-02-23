@@ -38,16 +38,32 @@
           <h1>Jeremy Robson</h1>
         </span>
         <nav class="time-tracking-dashboard__report-nav">
-          <a href="#" class="time-tracking-dashboard__report-control">Daily</a>
-          <a href="#" class="time-tracking-dashboard__report-control">Weekly</a>
-          <a href="#" class="time-tracking-dashboard__report-control"
-            >Monthly</a
+          <button
+            type="button"
+            class="btn time-tracking-dashboard__report-control"
+            data-name="daily"
           >
+            Daily
+          </button>
+          <button
+            type="button"
+            class="btn time-tracking-dashboard__report-control"
+            data-name="weekly"
+          >
+            Weekly
+          </button>
+          <button
+            type="button"
+            class="btn time-tracking-dashboard__report-control"
+            data-name="monthly"
+          >
+            Monthly
+          </button>
         </nav>
       </header>
-      <section class="time-tracking-dashboard__card-activities">
-        <div class="time-tracking-dashboard__card-content"></div>
-      </section>
+      <section class="time-tracking-dashboard__card-activities"></section>
     </main>
+
+    <script src="index.js"></script>
   </body>
 </html>
