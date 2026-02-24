@@ -4,4 +4,23 @@
 */
 
 :root {
+  /* action / interactive colors */
+  --action-nav-btn: hsl(235, 45%, 61%);
+
+  /* surface colors */
+  --surface-body: hsl(226, 43%, 10%);
+
+  --surface-card-activity: hsl(235, 46%, 20%);
+  --surface-card-report: hsl(246, 80%, 60%);
+
+  --surface-card-work: hsl(15, 100%, 70%);
+  --surface-card-play: hsl(195, 74%, 62%);
+  --surface-card-study: hsl(348, 100%, 68%);
+  --surface-card-exercise: hsl(145, 58%, 55%);
+  --surface-card-social: hsl(264, 64%, 52%);
+  --surface-card-selfCare: hsl(43, 84%, 65%);
+
+  /* text colors*/
+  --text-main: white;
+  --text-secondary: hsl(236, 100%, 87%);
 }

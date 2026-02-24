@@ -26,42 +26,32 @@
     </style>
   </head>
   <body>
-    <main class="time-tracking-dashboard">
-      <header class="time-tracking-dashboard__report">
-        <img
-          src="./images/image-jeremy.png"
-          alt=""
-          class="time-tracking-dashboard__report-user-image"
-        />
-        <span class="time-tracking-dashboard__report-title">
-          <span>Report for</span>
-          <h1>Jeremy Robson</h1>
-        </span>
-        <nav class="time-tracking-dashboard__report-nav">
-          <button
-            type="button"
-            class="btn time-tracking-dashboard__report-control"
-            data-name="daily"
-          >
+    <main class="dashboard">
+      <article class="user-card">
+        <header class="user-card__header">
+          <img
+            src="./images/image-jeremy.png"
+            alt="Jeremy Robson"
+            class="user-card__avatar"
+          />
+          <div class="user-card__info">
+            <p>Report for</p>
+            <h1>Jeremy Robson</h1>
+          </div>
+        </header>
+        <nav class="user-card__nav">
+          <button type="button" class="btn user-card__btn" data-name="daily">
             Daily
           </button>
-          <button
-            type="button"
-            class="btn time-tracking-dashboard__report-control"
-            data-name="weekly"
-          >
+          <button type="button" class="btn user-card__btn" data-name="weekly">
             Weekly
           </button>
-          <button
-            type="button"
-            class="btn time-tracking-dashboard__report-control"
-            data-name="monthly"
-          >
+          <button type="button" class="btn user-card__btn" data-name="monthly">
             Monthly
           </button>
         </nav>
-      </header>
-      <section class="time-tracking-dashboard__card-activities"></section>
+      </article>
+      <section id="activities-container"></section>
     </main>
 
     <script src="index.js"></script>

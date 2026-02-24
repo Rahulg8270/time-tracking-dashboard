@@ -13,7 +13,7 @@ The designs were created to the following widths:
 
 ### Primary
 
-- Purple 600: hsl(246, 80%, 60%)
+- Purple 600: hsl(246,80%, 60%)
 
 - Orange 300 (work): hsl(15, 100%, 70%)
 - Blue 300 (play): hsl(195, 74%, 62%)

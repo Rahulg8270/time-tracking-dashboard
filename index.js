@@ -1,22 +1,19 @@
-const cardContainer = document.querySelector(
-  ".time-tracking-dashboard__card-activities",
-);
+const activitiesContainer = document.querySelector("#activities-container");
 const btn = document.querySelectorAll(".btn");
+let stat__PreviousTimeFormat;
 let cardDiv = `
-<div class="card-outline">
-  <div class="card-content">
-    <div class="card-top">
-      <h2 class="card-top__title">title</h2>
-      <button class="card-top__more-info">more Info</button>
-    </div>
-    <div class="card-middle">
-      Current Time Frame
-    </div>
-    <div class="card-end">
-      Previous Time Frame
-    </div>
+<article class="stat-card">
+  <div class="stat-card__content">
+    <header class="stat-card__header">
+      <h2 class="stat-card__title"></h2>
+      <button class="stat-card__more-info">...</button>
+    </header>
+    <section class="stat-card__info>
+      <p class="stat-card__current"></p>
+      <p class="stat-card__previous"></p>
+    </section>
   </div>
-</div>
+</article>
 `;
 
 async function initDashboard() {
@@ -39,7 +36,16 @@ async function initDashboard() {
 }
 
 function renderUI(data, timeframe) {
-  cardContainer.innerHTML = ``;
+  activitiesContainer.innerHTML = ``;
+
+  if (timeframe === "daily") {
+    stat__PreviousTimeFormat = "Yesterday";
+  } else if (timeframe === "monthly") {
+    stat__PreviousTimeFormat = "Last Month";
+  } else {
+    stat__PreviousTimeFormat = "Last Week";
+  }
+
   data.forEach((card) => {
     for (let frame of Object.entries(card["timeframes"])) {
       if (frame[0] === timeframe) {
@@ -47,21 +53,23 @@ function renderUI(data, timeframe) {
         let currentTimeFrame = frame[1].current;
         let previousTimeFrame = frame[1].previous;
         // cardContainer.innerHTML = ``;
-        cardContainer.innerHTML += `
-          <div class="card-outline">
-            <div class="card-content">
-              <div class="card-top">
-                <h2 class="card-top__title">${card.title}</h2>
-                <button class="card-top__more-info">more Info</button>
-              </div>
-              <div class="card-middle">
-                  <h1>${currentTimeFrame} hrs</h1>
-              </div>
-              <div class="card-end">
-                  <p>${previousTimeFrame} hrs</p>
-              </div>
+        activitiesContainer.innerHTML += `
+          <article class="stat-card">
+            <div class="stat-card__content">
+              <header class="stat-card__header">
+                <h2 class="stat-card__title">${card.title}</h2>
+                <button class="stat-card__more-info">...</button>
+              </header>
+              <section class="stat-card__info>
+                <p class="stat-card__current">
+                  ${currentTimeFrame > 1 ? `${currentTimeFrame}hrs` : `${currentTimeFrame}hr`}
+                </p>
+                <p class="stat-card__previous">
+                  ${stat__PreviousTimeFormat} ${previousTimeFrame > 1 ? `${previousTimeFrame}hrs` : `${previousTimeFrame}hr`}
+                </p>
+              </section>
             </div>
-          </div>
+          </article>
         `;
       }
     }
@@ -69,6 +77,3 @@ function renderUI(data, timeframe) {
 }
 
 initDashboard();
-
-// so we have a default time tracking cards,
-// when we click on any button, that particular set of cards are being
