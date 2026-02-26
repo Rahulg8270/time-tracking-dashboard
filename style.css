@@ -10,8 +10,8 @@
   /* surface colors */
   --surface-body: hsl(226, 43%, 10%);
 
-  --surface-card-activity: hsl(235, 46%, 20%);
-  --surface-card-report: hsl(246, 80%, 60%);
+  --surface-card-statCard: hsl(235, 46%, 20%);
+  --surface-card-userCard: hsl(246, 80%, 60%);
 
   --surface-card-work: hsl(15, 100%, 70%);
   --surface-card-play: hsl(195, 74%, 62%);
@@ -23,4 +23,222 @@
   /* text colors*/
   --text-main: white;
   --text-secondary: hsl(236, 100%, 87%);
+
+  /* spacing */
+
+  --p-md: 2rem;
+  --p-lg: 2.5rem;
+
+  /* typography */
+  --font-main: "Rubik", sans-serif;
+  --font-xs: 300;
+  --font-sm: 400;
+  --font-md: 500;
+
+  --border-rad: 1.25rem;
+
+  --step-5: clamp(2.5rem, 1.62rem + 3.76vw, 3.5rem);
+}
+
+/* CSS Reset */
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+p,
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+body {
+  background-color: var(--surface-body);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  display: grid;
+}
+
+/* external layout */
+.l-container {
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 1210px;
+  gap: 32px;
+}
+.l-viewport-center {
+  display: grid;
+  place-items: center;
+  margin: auto;
+  min-height: 100%;
+  height: 100dvh;
+}
+
+/* internal layout */
+.stack {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: none;
+  align-items: center;
+  gap: 2rem;
+}
+#activities-container {
+  display: grid;
+  grid-template-rows: repeat(2, minmax(150px, 300px));
+  gap: 32px;
+}
+
+/* Components */
+.user-card {
+  background-color: var(--surface-card-userCard);
+  color: var(--text-secondary);
+  border-radius: var(--border-rad);
+  height: max-content;
+}
+.user-card__header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  padding: var(--p-md);
+}
+
+.user-card__nav {
+  background-color: var(--surface-card-statCard);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--p-md);
+  border-bottom-left-radius: var(--border-rad);
+  border-bottom-right-radius: var(--border-rad);
+}
+
+.user-card__avatar {
+  width: 150px;
+}
+.user-card__title {
+  color: var(--text-main);
+  font-weight: var(--font-sm);
+}
+.user-card__btn {
+  background-color: transparent;
+  border: none;
+  width: 5rem;
+  color: var(--text-main);
+  cursor: pointer;
+}
+.stat-card {
+  background-color: var(--surface-card-statCard);
+  border-radius: var(--border-rad);
+}
+
+.stat-card__content {
+  padding: var(--p-md);
+  border-top-left-radius: var(--border-rad);
+  border-top-right-radius: var(--border-rad);
+}
+
+.stat-card__header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.stat-card__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.stat-card__current {
+  font-size: var(--step-5);
+  font-weight: var(--font-sm);
+}
+.stat-card__outline {
+  height: 25%;
+}
+.stat-card__outline::before {
+  content: "";
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding-inline: 1rem;
+  /* width: 100%; */
+  height: 80%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  overflow: hidden;
+}
+.stat-card__outline[data-category="work"]::before {
+  content: url("./images/icon-work.svg");
+  background-color: var(--surface-card-work);
+}
+.stat-card__outline[data-category="play"]::before {
+  content: url("./images/icon-play.svg");
+  background-color: var(--surface-card-play);
+}
+.stat-card__outline[data-category="study"]::before {
+  content: url("./images/icon-study.svg");
+  background-color: var(--surface-card-study);
+}
+.stat-card__outline[data-category="exercise"]::before {
+  content: url("./images/icon-exercise.svg");
+  background-color: var(--surface-card-exercise);
+}
+.stat-card__outline[data-category="social"]::before {
+  content: url("./images/icon-social.svg");
+  background-color: var(--surface-card-social);
+}
+.stat-card__outline[data-category="self care"]::before {
+  content: url("./images/icon-self-care.svg");
+  background: var(--surface-card-selfCare);
+}
+
+@media screen and (min-width: 769px) {
+  #activities-container {
+    grid-template-columns: repeat(3, 1fr);
+    /* place-items: center; */
+    justify-content: center;
+  }
+
+  .stat-card__info {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: start; */
+    justify-content: center;
+    align-items: start;
+  }
+}
+
+@media screen and (min-width: 1150px) {
+  .l-container {
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 1fr;
+  }
+  .user-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 100%;
+  }
+  .user-card__header {
+    grid-template-columns: 1fr;
+    justify-content: start;
+    align-items: start;
+    padding: var(--p-md);
+  }
+  .user-card__avatar {
+    /* grid-row: 1 / span 1; */
+  }
+  .user-card__info {
+    /* grid-row: 2 / span -2; */
+  }
 }

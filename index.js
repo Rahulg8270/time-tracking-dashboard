@@ -1,20 +1,20 @@
 const activitiesContainer = document.querySelector("#activities-container");
 const btn = document.querySelectorAll(".btn");
 let stat__PreviousTimeFormat;
-let cardDiv = `
-<article class="stat-card">
-  <div class="stat-card__content">
-    <header class="stat-card__header">
-      <h2 class="stat-card__title"></h2>
-      <button class="stat-card__more-info">...</button>
-    </header>
-    <section class="stat-card__info>
-      <p class="stat-card__current"></p>
-      <p class="stat-card__previous"></p>
-    </section>
-  </div>
-</article>
-`;
+// let cardDiv = `
+// <article class="stat-card">
+//   <div class="stat-card__content">
+//     <header class="stat-card__header">
+//       <h2 class="stat-card__title"></h2>
+//       <button class="stat-card__more-info">...</button>
+//     </header>
+//     <section class="stat-card__info>
+//       <p class="stat-card__current"></p>
+//       <p class="stat-card__previous"></p>
+//     </section>
+//   </div>
+// </article>
+// `;
 
 async function initDashboard() {
   const request = new Request("./data.json");
@@ -39,14 +39,15 @@ function renderUI(data, timeframe) {
   activitiesContainer.innerHTML = ``;
 
   if (timeframe === "daily") {
-    stat__PreviousTimeFormat = "Yesterday";
+    stat__PreviousTimeFormat = "Yesterday - ";
   } else if (timeframe === "monthly") {
-    stat__PreviousTimeFormat = "Last Month";
+    stat__PreviousTimeFormat = "Last Month - ";
   } else {
-    stat__PreviousTimeFormat = "Last Week";
+    stat__PreviousTimeFormat = "Last Week - ";
   }
 
   data.forEach((card) => {
+    let category = card.title.toLowerCase();
     for (let frame of Object.entries(card["timeframes"])) {
       if (frame[0] === timeframe) {
         console.log(frame);
@@ -54,13 +55,16 @@ function renderUI(data, timeframe) {
         let previousTimeFrame = frame[1].previous;
         // cardContainer.innerHTML = ``;
         activitiesContainer.innerHTML += `
-          <article class="stat-card">
+          <article class="stat-card" >
+            <div class="stat-card__outline" data-category="${category}">
             <div class="stat-card__content">
               <header class="stat-card__header">
                 <h2 class="stat-card__title">${card.title}</h2>
-                <button class="stat-card__more-info">...</button>
+                <button class="stat-card__btn-info" aria-label="more info">
+                  <img src="${"./images/icon-ellipsis.svg"}" />
+                </button>
               </header>
-              <section class="stat-card__info>
+              <section class="stat-card__info">
                 <p class="stat-card__current">
                   ${currentTimeFrame > 1 ? `${currentTimeFrame}hrs` : `${currentTimeFrame}hr`}
                 </p>
@@ -68,6 +72,7 @@ function renderUI(data, timeframe) {
                   ${stat__PreviousTimeFormat} ${previousTimeFrame > 1 ? `${previousTimeFrame}hrs` : `${previousTimeFrame}hr`}
                 </p>
               </section>
+            </div>
             </div>
           </article>
         `;

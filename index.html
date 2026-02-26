@@ -15,45 +15,48 @@
     <title>Frontend Mentor | Time tracking dashboard</title>
 
     <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-    <style>
-      .attribution {
-        font-size: 11px;
-        text-align: center;
-      }
-      .attribution a {
-        color: hsl(228, 45%, 44%);
-      }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <main class="dashboard">
-      <article class="user-card">
-        <header class="user-card__header">
-          <img
-            src="./images/image-jeremy.png"
-            alt="Jeremy Robson"
-            class="user-card__avatar"
-          />
-          <div class="user-card__info">
-            <p>Report for</p>
-            <h1>Jeremy Robson</h1>
-          </div>
-        </header>
-        <nav class="user-card__nav">
-          <button type="button" class="btn user-card__btn" data-name="daily">
-            Daily
-          </button>
-          <button type="button" class="btn user-card__btn" data-name="weekly">
-            Weekly
-          </button>
-          <button type="button" class="btn user-card__btn" data-name="monthly">
-            Monthly
-          </button>
-        </nav>
-      </article>
-      <section id="activities-container"></section>
-    </main>
-
+    <div class="l-viewport-center">
+      <main class="l-container">
+        <article class="user-card">
+          <header class="user-card__header stack">
+            <img
+              src="./images/image-jeremy.png"
+              alt="Jeremy Robson"
+              class="user-card__avatar"
+            />
+            <div class="user-card__info">
+              <p class="user-card__subtitle">Report for</p>
+              <h1 class="user-card__title">Jeremy Robson</h1>
+            </div>
+          </header>
+          <nav class="user-card__nav">
+            <button type="button" class="btn user-card__btn" data-name="daily">
+              Daily
+            </button>
+            <button type="button" class="btn user-card__btn" data-name="weekly">
+              Weekly
+            </button>
+            <button
+              type="button"
+              class="btn user-card__btn"
+              data-name="monthly"
+            >
+              Monthly
+            </button>
+          </nav>
+        </article>
+        <section id="activities-container"></section>
+      </main>
+    </div>
     <script src="index.js"></script>
   </body>
 </html>
