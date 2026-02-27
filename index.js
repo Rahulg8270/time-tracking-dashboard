@@ -1,6 +1,5 @@
 const stat_CardList = document.querySelector(".stat-cards-list");
 const btn = document.querySelectorAll(".btn");
-let stat__PreviousTimeFormat;
 
 async function initDashboard() {
   const request = new Request("./data.json");
@@ -11,7 +10,7 @@ async function initDashboard() {
 
   btn.forEach((button) => {
     button.addEventListener("click", (event) => {
-      const target = event.target;
+      const target = event.currentTarget;
       btn.forEach((BTN) => {
         BTN.classList.remove("active");
         BTN.setAttribute("aria-pressed", "false");
@@ -28,6 +27,7 @@ async function initDashboard() {
 }
 
 function renderUI(data, timeframe) {
+  let statistic__cardHtml = ``;
   stat_CardList.innerHTML = ``;
 
   if (timeframe === "daily") {
@@ -39,21 +39,21 @@ function renderUI(data, timeframe) {
   }
 
   data.forEach((card) => {
-    let category = card.title.toLowerCase();
+    const category = card.title.toLowerCase();
     for (let frame of Object.entries(card["timeframes"])) {
       if (frame[0] === timeframe) {
         console.log(frame);
         let currentTimeFrame = frame[1].current;
         let previousTimeFrame = frame[1].previous;
         // cardContainer.innerHTML = ``;
-        stat_CardList.innerHTML += `
+        statistic__cardHtml += `
           <li class="stat-card" >
-            <div class="stat-card__outline" data-category="${category}">
+            <section class="stat-card__outline" data-category="${category}">
             <div class="stat-card__content">
               <header class="stat-card__header">
                 <h2 class="stat-card__title">${card.title}</h2>
-                <button type="button" class="stat-card__btn-info" aria-label="more info about time spent on ${category}">
-                  <img src="${"./images/icon-ellipsis.svg"}" alt="${category}" />
+                <button type="button" class="stat-card__btn-info" aria-label="more info about ${category}">
+                  <img src="${"./images/icon-ellipsis.svg"}" />
                 </button>
               </header>
               <div class="stat-card__info ">
@@ -65,12 +65,13 @@ function renderUI(data, timeframe) {
                 </p>
               </div>
             </div>
-            </div>
+            </section>
           </li>
         `;
       }
     }
   });
+  stat_CardList.innerHTML = statistic__cardHtml;
 }
 
 initDashboard();
