@@ -1,20 +1,6 @@
 const activitiesContainer = document.querySelector("#activities-container");
 const btn = document.querySelectorAll(".btn");
 let stat__PreviousTimeFormat;
-// let cardDiv = `
-// <article class="stat-card">
-//   <div class="stat-card__content">
-//     <header class="stat-card__header">
-//       <h2 class="stat-card__title"></h2>
-//       <button class="stat-card__more-info">...</button>
-//     </header>
-//     <section class="stat-card__info>
-//       <p class="stat-card__current"></p>
-//       <p class="stat-card__previous"></p>
-//     </section>
-//   </div>
-// </article>
-// `;
 
 async function initDashboard() {
   const request = new Request("./data.json");
