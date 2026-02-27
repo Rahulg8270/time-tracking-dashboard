@@ -38,17 +38,32 @@
               <h1 class="user-card__title">Jeremy Robson</h1>
             </div>
           </header>
-          <nav class="user-card__nav">
-            <button type="button" class="btn user-card__btn" data-name="daily">
+          <nav
+            class="user-card__nav"
+            role="navigation"
+            aria-label="Time period Selection"
+          >
+            <button
+              type="button"
+              class="btn user-card__btn active"
+              data-name="daily"
+              aria-pressed="true"
+            >
               Daily
             </button>
-            <button type="button" class="btn user-card__btn" data-name="weekly">
+            <button
+              type="button"
+              class="btn user-card__btn"
+              data-name="weekly"
+              aria-pressed="false"
+            >
               Weekly
             </button>
             <button
               type="button"
               class="btn user-card__btn"
               data-name="monthly"
+              aria-pressed="false"
             >
               Monthly
             </button>

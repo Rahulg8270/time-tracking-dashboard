@@ -12,6 +12,12 @@ async function initDashboard() {
   btn.forEach((button) => {
     button.addEventListener("click", (event) => {
       const target = event.target;
+      btn.forEach((BTN) => {
+        BTN.classList.remove("active");
+        BTN.setAttribute("aria-pressed", "false");
+      });
+      button.classList.add("active");
+      button.setAttribute("aria-pressed", "true");
 
       const currentTimeframe = target.getAttribute("data-name");
       renderUI(data, currentTimeframe);
@@ -46,15 +52,15 @@ function renderUI(data, timeframe) {
             <div class="stat-card__content">
               <header class="stat-card__header">
                 <h2 class="stat-card__title">${card.title}</h2>
-                <button class="stat-card__btn-info" aria-label="more info">
-                  <img src="${"./images/icon-ellipsis.svg"}" />
+                <button class="stat-card__btn-info" aria-label="more info about time spent on ${category}">
+                  <img src="${"./images/icon-ellipsis.svg"}" alt="${category}" />
                 </button>
               </header>
-              <section class="stat-card__info">
+              <section class="stat-card__info ">
                 <p class="stat-card__current">
                   ${currentTimeFrame > 1 ? `${currentTimeFrame}hrs` : `${currentTimeFrame}hr`}
                 </p>
-                <p class="stat-card__previous">
+                <p class="stat-card__previous ">
                   ${stat__PreviousTimeFormat} ${previousTimeFrame > 1 ? `${previousTimeFrame}hrs` : `${previousTimeFrame}hr`}
                 </p>
               </section>
