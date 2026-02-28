@@ -1,77 +1,88 @@
 const stat_CardList = document.querySelector(".stat-cards-list");
-const btn = document.querySelectorAll(".btn");
+const controlContainer = document.querySelector(".user-card__nav");
 
-async function initDashboard() {
-  const request = new Request("./data.json");
-  const response = await fetch(request);
-  const data = await response.json();
+const getTimeframeLabel = (timeframe) => {
+  const label = {
+    daily: "Yesterday - ",
+    weekly: "Last week - ",
+    monthly: "Last month - ",
+  };
+  return label[timeframe] || "Previous - ";
+};
 
-  renderUI(data, "daily");
+const formatHours = (hrs) => `${hrs}${hrs === 1 ? "hr" : "hrs"}`;
 
-  btn.forEach((button) => {
-    button.addEventListener("click", (event) => {
-      const target = event.currentTarget;
-      btn.forEach((BTN) => {
-        BTN.classList.remove("active");
-        BTN.setAttribute("aria-pressed", "false");
-      });
-      button.classList.add("active");
-      button.setAttribute("aria-pressed", "true");
+const createCardTemplate = (card, timeframe, label) => {
+  const { title, timeframes } = card;
+  const { current, previous } = timeframes[timeframe];
+  const category = title.toLowerCase();
 
-      const currentTimeframe = target.getAttribute("data-name");
-      renderUI(data, currentTimeframe);
-    });
-  });
-
-  return data;
-}
-
-function renderUI(data, timeframe) {
-  let statistic__cardHtml = ``;
-  stat_CardList.innerHTML = ``;
-
-  if (timeframe === "daily") {
-    stat__PreviousTimeFormat = "Yesterday - ";
-  } else if (timeframe === "monthly") {
-    stat__PreviousTimeFormat = "Last Month - ";
-  } else {
-    stat__PreviousTimeFormat = "Last Week - ";
-  }
-
-  data.forEach((card) => {
-    const category = card.title.toLowerCase();
-    for (let frame of Object.entries(card["timeframes"])) {
-      if (frame[0] === timeframe) {
-        console.log(frame);
-        let currentTimeFrame = frame[1].current;
-        let previousTimeFrame = frame[1].previous;
-        // cardContainer.innerHTML = ``;
-        statistic__cardHtml += `
-          <li class="stat-card" >
+  return `
+    <li class="stat-card" >
             <section class="stat-card__outline" data-category="${category}">
             <div class="stat-card__content">
               <header class="stat-card__header">
-                <h2 class="stat-card__title">${card.title}</h2>
+                <h2 class="stat-card__title">${title}</h2>
                 <button type="button" class="stat-card__btn-info" aria-label="more info about ${category}">
                   <img src="${"./images/icon-ellipsis.svg"}" />
                 </button>
               </header>
               <div class="stat-card__info ">
                 <p class="stat-card__current">
-                  ${currentTimeFrame > 1 ? `${currentTimeFrame}hrs` : `${currentTimeFrame}hr`}
+                  ${formatHours(current)}
                 </p>
                 <p class="stat-card__previous ">
-                  ${stat__PreviousTimeFormat} ${previousTimeFrame > 1 ? `${previousTimeFrame}hrs` : `${previousTimeFrame}hr`}
+                  ${label} ${formatHours(previous)}
                 </p>
               </div>
             </div>
             </section>
           </li>
-        `;
-      }
-    }
-  });
-  stat_CardList.innerHTML = statistic__cardHtml;
+  `;
+};
+
+async function initDashboard() {
+  try {
+    const request = new Request("./data.json");
+    const response = await fetch(request);
+    const data = await response.json();
+    // initial render
+    updateUI(data, "daily");
+
+    controlContainer.addEventListener("click", (e) => {
+      const clickedButton = e.target.closest(".btn");
+
+      // guard clause if the user clicks anywhere without the .btn class can be empty space or anything
+
+      if (!clickedButton) return;
+
+      const timeframe = clickedButton.getAttribute("data-name");
+      setActiveButton(controlContainer, clickedButton);
+
+      updateUI(data, timeframe);
+    });
+  } catch (error) {
+    console.log("failed to load the dashboard", error);
+  }
+}
+
+function updateUI(data, timeframe) {
+  const label = getTimeframeLabel(timeframe);
+  stat_CardList.innerHTML = data
+    .map((card) => createCardTemplate(card, timeframe, label))
+    .join("");
+}
+
+function setActiveButton(container, clickedButton) {
+  const currentActive = container.querySelector(".btn.active");
+
+  if (currentActive && currentActive !== clickedButton) {
+    clickedButton.classList.remove("active");
+    clickedButton.setAttribute("aria-pressed", "false");
+  }
+
+  clickedButton.classList.add("active");
+  clickedButton.setAttribute("aria-pressed", "true");
 }
 
 initDashboard();

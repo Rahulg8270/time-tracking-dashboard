@@ -6,6 +6,7 @@
 :root {
   /* action / interactive colors */
   --action-nav-btn: hsl(235, 45%, 61%);
+  --action-hover-statCard: hsla(235, 58%, 18%, 0.762);
 
   /* surface colors */
   --surface-body: hsl(226, 43%, 10%);
@@ -174,6 +175,13 @@ body {
   grid-template-columns: 1fr;
   grid-template-rows: 1fr auto;
   gap: var(--spacing-large);
+  transition: all 0.3s;
+  overflow: hidden;
+}
+.stat-card__content:hover {
+  /* color: var(--surface-card-userCard); */
+  /* transform: scale(1.1); */
+  background-color: var();
 }
 
 .stat-card__header {
